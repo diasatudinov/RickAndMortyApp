@@ -113,16 +113,22 @@ extension RMCharacterDetailViewController: UICollectionViewDelegate, UICollectio
             
             return cell
         }
-//            
-//        if indexPath.section == 0 {
-//            cell.backgroundColor = .systemPink
-//        } else if indexPath.section == 1 {
-//            cell.backgroundColor = .systemGreen
-//        } else {
-//            cell.backgroundColor = .systemBlue
-//        }
         
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let sectionType = viewModel.sections[indexPath.section]
+
+        switch sectionType {
+            
+        case .photo, .information:
+            break
+        case .episodes:
+            let episodes = self.viewModel.episodes
+            let selection = episodes[indexPath.row]
+            let vc = RMEpisodeDetailViewController(url: URL(string: selection))
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
     
 }
